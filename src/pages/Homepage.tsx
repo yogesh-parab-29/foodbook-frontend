@@ -4,7 +4,6 @@ import appDownloadImage from "../assets/appDownload.png";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  const navigate = useNavigate();
 
   //   const handleSearchSubmit = (searchFormValues: SearchForm) => {
   //     navigate({

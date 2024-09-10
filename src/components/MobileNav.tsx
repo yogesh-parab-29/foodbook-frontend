@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Sheet,
   SheetContent,
@@ -10,15 +9,15 @@ import { CircleUserRound, Menu } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getUserInitials, User } from "@/hooks/Auth";
+import {  User } from "@/hooks/Auth";
 import MobileNavLink from "./MobileNavLink";
 
 const MobileNav = () => {
   const { isAuthenticated, user, loginWithRedirect } = useAuth0<User>();
-  const initials = user?.name
-    .split(" ")
-    .map((username) => username[0].toUpperCase())
-    .join("");
+  // const initials = user?.name
+  //   .split(" ")
+  //   .map((username) => username[0].toUpperCase())
+  //   .join("");
   return (
     <Sheet>
       <SheetTrigger>
