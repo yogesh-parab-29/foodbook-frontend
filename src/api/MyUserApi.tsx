@@ -75,11 +75,10 @@ export const useCreateMyUser = () => {
   const {
     mutateAsync: createUser,
     isLoading,
-    isError,
     isSuccess,
   } = useMutation(createMyUserRequest);
 
-  return { createUser, isLoading, isError, isSuccess };
+  return { createUser, isLoading, isSuccess };
 };
 type updateUserRequest = {
   name: string;
@@ -110,7 +109,6 @@ export const useUpdateMyUser = () => {
     mutateAsync: updateUser,
     isLoading,
     isSuccess,
-    isError,
     error,
     reset,
   } = useMutation(updateMyUserRequest);
