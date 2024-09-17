@@ -6,6 +6,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import MenuItemInput from "./MenuItemInput";
 
 const MenuSection = () => {
   const { control } = useFormContext();
@@ -37,9 +38,9 @@ const MenuSection = () => {
           </FormItem>
         )}
       />
-      <Button type="submit" onClick={()=>{
+      <Button type="button" onClick={()=>{
         append({name:"",price:""})
-      }}/>
+      }}> Add Menu Item</Button>
     </div>
   );
 };

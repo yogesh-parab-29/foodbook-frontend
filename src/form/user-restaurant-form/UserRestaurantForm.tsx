@@ -6,6 +6,7 @@ import { z } from "zod";
 import DetailSection from "./DetailSection";
 import { Separator } from "@/components/ui/separator";
 import { Cuisines } from "./Cuisines";
+import MenuSection from "./MenuSection";
 
 const restaurantFormSchema = z.object({
   restaurantName: z.string().min(1, "Restaurant Name is required"),
@@ -41,9 +42,8 @@ type Props = {
 };
 
 // eslint-disable-next-line no-empty-pattern
-const UserRestaurantForm = ({
-  // currentRestaurantData,  onSave,  isLoading,
-}: Props) => {
+const UserRestaurantForm = ({}: // currentRestaurantData,  onSave,  isLoading,
+Props) => {
   const form = useForm<RestaurantFormData>({
     resolver: zodResolver(restaurantFormSchema),
     defaultValues: {
@@ -61,8 +61,10 @@ const UserRestaurantForm = ({
         className="space-y-8 bg-gray-50 p-10 rounded-lg"
       >
         <DetailSection />
-        <Separator/>
-        <Cuisines/>
+        <Separator />
+        <Cuisines />
+        <Separator />
+        <MenuSection />
       </form>
     </Form>
   );
