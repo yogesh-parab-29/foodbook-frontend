@@ -7,6 +7,9 @@ import DetailSection from "./DetailSection";
 import { Separator } from "@/components/ui/separator";
 import { Cuisines } from "./Cuisines";
 import MenuSection from "./MenuSection";
+import LoadingButton from "@/components/LoadingButton";
+import { Button } from "@/components/ui/button";
+import ImageSection from "./ImageSection";
 
 const restaurantFormSchema = z.object({
   restaurantName: z.string().min(1, "Restaurant Name is required"),
@@ -37,13 +40,14 @@ const restaurantFormSchema = z.object({
 type RestaurantFormData = z.infer<typeof restaurantFormSchema>;
 type Props = {
   currentRestaurantData: Restaurant;
-  onSave: (restaurantFormData: RestaurantFormData) => void;
+  onSave: (restaurantFormData: FormData) => void;
   isLoading: boolean;
 };
 
-// eslint-disable-next-line no-empty-pattern
-const UserRestaurantForm = ({}: // currentRestaurantData,  onSave,  isLoading,
-Props) => {
+const UserRestaurantForm = ({
+  onSave,
+  isLoading,
+}: Props) => {
   const form = useForm<RestaurantFormData>({
     resolver: zodResolver(restaurantFormSchema),
     defaultValues: {
@@ -52,7 +56,33 @@ Props) => {
     },
   });
 
-  const onSubmit = (formDataJson: RestaurantFormData) => {};
+  const onSubmit = (formDataJson: RestaurantFormData) => {
+    const formData = new FormData();
+    formData.append("restaurantName", formDataJson.restaurantName);
+    formData.append("city", formDataJson.city);
+    formData.append("country", formDataJson.country);
+    formData.append(
+      "deliveryPrice",
+      (formDataJson.deliveryPrice * 100).toString()
+    );
+    formData.append(
+      "estimatedDeliveryTime",
+      formDataJson.estimatedDeliveryTime.toString()
+    );
+    formDataJson.cuisines.forEach((cuisine, index) => {
+      formData.append(`cusines.[${index}]`, cuisine);
+    });
+    formDataJson.menuItems.forEach((menuItem, index) => {
+      formData.append(`cusines.[${index}][name]`, menuItem.name);
+      formData.append(
+        `cusines.[${index}][price]`,
+        (menuItem.price * 100).toString()
+      );
+    });
+    formData.append("imageFile", formDataJson.imageFile);
+
+    onSave(formData)
+  };
 
   return (
     <Form {...form}>
@@ -65,6 +95,9 @@ Props) => {
         <Cuisines />
         <Separator />
         <MenuSection />
+        <Separator />
+        <ImageSection />
+        {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
       </form>
     </Form>
   );
