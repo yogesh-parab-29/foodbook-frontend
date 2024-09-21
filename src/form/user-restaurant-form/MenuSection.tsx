@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   FormDescription,
   FormField,
-  FormItem,
-  FormLabel,
+  FormItem
 } from "@/components/ui/form";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import MenuItemInput from "./MenuItemInput";
@@ -27,20 +26,24 @@ const MenuSection = () => {
         control={control}
         name="menuItems"
         render={() => (
-          <FormItem className="flex flex-col gap-2">
-            <FormLabel>
-              {fields.map((_, i) => {
-                return (
-                  <MenuItemInput index={i} removeMenuItem={() => remove(i)} />
-                );
-              })}
-            </FormLabel>
+          <FormItem className="flex flex-col gap-4">
+            {fields.map((_, index) => {
+              return (
+                <MenuItemInput removeMenuItem={() => remove(index)} index={index} />
+              );
+            })}
           </FormItem>
         )}
       />
-      <Button type="button" onClick={()=>{
-        append({name:"",price:""})
-      }}> Add Menu Item</Button>
+      <Button
+        type="button"
+        onClick={() => {
+          append({ name: "", price: "" });
+        }}
+      >
+        {" "}
+        Add Menu Item
+      </Button>
     </div>
   );
 };
