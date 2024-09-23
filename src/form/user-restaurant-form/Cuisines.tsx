@@ -4,11 +4,11 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { cuisuineList } from "@/config/restaurant-cuisine-options";
+import { cuisineList } from "@/config/restaurant-cuisine-options";
 import { useFormContext } from "react-hook-form";
 import CuisineCheckBox from "./CuisineCheckBox";
 
-export const Cuisines = () => {
+ const Cuisines = () => {
   const { control } = useFormContext();
   return (
     <>
@@ -26,7 +26,7 @@ export const Cuisines = () => {
             return (
               <FormItem>
                 <div className="grid md:grid-cols-5 gap-1">
-                  {cuisuineList.map((item,index) => (
+                  {cuisineList.map((item,index) => (
                     <CuisineCheckBox cuisine={item} field={field} key={index} />
                   ))}
                 </div>
@@ -39,3 +39,4 @@ export const Cuisines = () => {
     </>
   );
 };
+ export default Cuisines

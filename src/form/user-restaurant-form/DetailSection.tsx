@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   FormControl,
   FormDescription,
@@ -106,7 +105,7 @@ const DetailSection = () => {
             );
           }}
         ></FormField>
-        <Button className="my-4 w-20"type="submit">Save</Button>
+
       </div>
     </div>
   );

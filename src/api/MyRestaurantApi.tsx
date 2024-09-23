@@ -5,23 +5,66 @@ import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+// export const useCreateMyRestaurant = () => {
+//   const { getAccessTokenSilently } = useAuth0();
+
+//   const createMyRestaurantRequest = async (
+//     restaurantFormData: FormData
+//   ): Promise<Restaurant> => {
+//     const token = await getAccessTokenSilently();
+//     const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: restaurantFormData,
+//     });
+//     if (!response.ok) {
+//       throw new Error("Unable to create restaurant");
+//     }
+//     return response.json();
+//   };
+
+//   const {
+//     mutate: createRestaurant,
+//     isLoading,
+//     isSuccess,
+//     error,
+//   } = useMutation(createMyRestaurantRequest);
+
+//   if (isSuccess) {
+//     toast.success("Restaurant Created");
+//   }
+
+//   if (error) {
+//     toast.error("Unable to Create Restaurant");
+//   }
+
+//   return { createRestaurant, isLoading };
+// };
+
+// export default useCreateMyRestaurant;
+
 export const useCreateMyRestaurant = () => {
   const { getAccessTokenSilently } = useAuth0();
 
   const createMyRestaurantRequest = async (
     restaurantFormData: FormData
   ): Promise<Restaurant> => {
-    const token = await getAccessTokenSilently();
+    const accessToken = await getAccessTokenSilently();
+
     const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: restaurantFormData,
     });
+
     if (!response.ok) {
-      throw new Error("Unable to create restaurant");
+      throw new Error("Failed to create restaurant");
     }
+
     return response.json();
   };
 
@@ -33,14 +76,12 @@ export const useCreateMyRestaurant = () => {
   } = useMutation(createMyRestaurantRequest);
 
   if (isSuccess) {
-    toast.success("Restaurant Created");
+    toast.success("Restaurant created!");
   }
 
   if (error) {
-    toast.error("Unable to Create Restaurant");
+    toast.error("Unable to update restaurant");
   }
 
   return { createRestaurant, isLoading };
 };
-
-// export default useCreateMyRestaurant;

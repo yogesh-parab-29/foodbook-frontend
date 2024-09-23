@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import DetailSection from "./DetailSection";
 import { Separator } from "@/components/ui/separator";
-import { Cuisines } from "./Cuisines";
+import Cuisines from "./Cuisines";
 import MenuSection from "./MenuSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
@@ -54,6 +54,7 @@ const UserRestaurantForm = ({ onSave, isLoading }: Props) => {
   });
 
   const onSubmit = (formDataJson: RestaurantFormData) => {
+    console.log(formDataJson);
     const formData = new FormData();
     formData.append("restaurantName", formDataJson.restaurantName);
     formData.append("city", formDataJson.city);
@@ -67,17 +68,24 @@ const UserRestaurantForm = ({ onSave, isLoading }: Props) => {
       formDataJson.estimatedDeliveryTime.toString()
     );
     formDataJson.cuisines.forEach((cuisine, index) => {
-      formData.append(`cusines[${index}]`, cuisine);
+      formData.append(`cuisines[${index}]`, cuisine);
     });
     formDataJson.menuItems.forEach((menuItem, index) => {
       formData.append(`menuItems[${index}][name]`, menuItem.name);
       formData.append(
-        `menuItems.[${index}][price]`,
+        `menuItems[${index}][price]`,
         (menuItem.price * 100).toString()
       );
     });
-    formData.append("imageFile", formDataJson.imageFile);
 
+    if (formDataJson.imageFile) {
+      formData.append("imageFile", formDataJson.imageFile);
+    }
+    // console.log("FormData contents:");
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+    // console.log(formData.get("restaurantName"));
     onSave(formData);
   };
 
