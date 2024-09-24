@@ -41,21 +41,8 @@ type CreateUserRequest = {
 };
 
 export const useCreateMyUser = () => {
-  // const createMyUserRequest = async (user: CreateUserRequest) => {
-  //   const response = await fetch(`${API_BASE_URL}/api/my/user`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(user),
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error("Failed to create User");
-  //   }
-  // };
   const { getAccessTokenSilently } = useAuth0();
   const createMyUserRequest = async (user: CreateUserRequest) => {
-    // try {
     const token = await getAccessTokenSilently();
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "POST",
@@ -68,9 +55,6 @@ export const useCreateMyUser = () => {
     if (!response.ok) {
       throw new Error("Failed to create User");
     }
-    // } catch (e) {
-    //   console.error("Error in createMyUserRequest:", e);
-    // }
   };
   const {
     mutateAsync: createUser,
@@ -122,19 +106,3 @@ export const useUpdateMyUser = () => {
   }
   return { updateUser, isLoading };
 };
-
-// const useCreateMyUser = () => {
-//   const createMyUser = async (user: CreateUserRequest) => {
-//     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(user),
-//     });
-
-//     if(!response.ok){
-//         return new Error("User not created")
-//     }
-//   };
-// };
