@@ -43,6 +43,9 @@ const UserNameMenu = ({ user }: userProps) => {
       <DropdownMenuContent>
         {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
         <DropdownMenuItem>
+          <Link to={"/restaurant"}>Manage restaurant</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <Link to={"/user-profile"}>User profile</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
