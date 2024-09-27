@@ -36,8 +36,12 @@ const restaurantFormSchema = z.object({
       }),
     })
   ),
-  imageFile: z.instanceof(File, { message: "Image is required" }),
-});
+  imageUrl: z.string().optional(),
+  imageFile: z.instanceof(File, { message: "Image is required" }).optional(),
+}).refine((data)=>data.imageUrl || data.imageFile,{
+  message:"Either image URL or image File must be provided",
+  path:["imageFile"]
+})
 type RestaurantFormData = z.infer<typeof restaurantFormSchema>;
 type Props = {
   restaurant?: Restaurant;
@@ -58,7 +62,6 @@ const UserRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
     if (!restaurant) {
       return;
     }
-
     const deliveryPriceFormatted = parseInt(
       (restaurant.deliveryPrice / 100).toFixed(2)
     );
@@ -104,11 +107,6 @@ const UserRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
     if (formDataJson.imageFile) {
       formData.append("imageFile", formDataJson.imageFile);
     }
-    // console.log("FormData contents:");
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
-    // console.log(formData.get("restaurantName"));
     onSave(formData);
   };
 
