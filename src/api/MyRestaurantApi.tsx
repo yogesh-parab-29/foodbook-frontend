@@ -49,9 +49,7 @@ export const useGetMyRestaurant = () => {
   const { getAccessTokenSilently } = useAuth0();
 
   const getMyRestaurant = async (): Promise<Restaurant> => {
-    console.log("reached 1");
     const token = await getAccessTokenSilently();
-    console.log(token);
     const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
       method: "GET",
       headers: {
